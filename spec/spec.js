@@ -39,4 +39,10 @@ describe("Simple tests", function()
 
         expect(objParam).toEqual('{  hello: {coolObject}.hello, whats: {coolObject}.whats, test: {coolObject}.test }');
     });
+
+    it("labels to string", function()
+    {
+        var labelStr = cypherTools.labelsToString(["Movie", "Horror"]);
+        expect(labelStr).toEqual(":Movie:Horror");
+    });
 });

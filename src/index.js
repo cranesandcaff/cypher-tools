@@ -28,7 +28,7 @@ module.exports = {
      * @function objToString
      * @summary
      * This converts an object to a string that Neo4J can read
-     * @since 1.0.0
+     * @since 1.1.0
      * @param  {object} obj -
      * The object to return as a string
      * @return {string}
@@ -148,5 +148,25 @@ module.exports = {
 
         // Return finished object
         return newObj;
+    },
+
+    /**
+     * Converts an array of labels to string form that cypher can understand
+     *
+     * @function labelsToString
+     * @since 1.1.0
+     * @param  {array} labels -
+     * Aray of labels
+     * @return {string}
+     * Labels in a string form that is compatible with cypher
+     * @example
+     * // Convert some labels to a label string
+     * labelsToString(["Movie", "Horror", "Action", "Favorite"]);
+     * // Returns
+     * // :Movie:Horror:Action:Favorite
+     */
+    labelsToString: (labels) =>
+    {
+        return `:${labels.join(`:`)}`;
     }
 };

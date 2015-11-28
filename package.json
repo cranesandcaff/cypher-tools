@@ -1,6 +1,6 @@
 {
   "name": "cypher-tools",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Various useful tools for Neo4J's Cypher Query Language",
   "main": "build/index.js",
   "scripts": {

@@ -119,6 +119,17 @@ This may seem redundant and a bit convoluted, but it makes use of Neo4J's optimi
 which is good for everything including execution speed of your program and adds
 no complexity to your program.
 
+### Labels to string (labelsToString)
+
+Cypher can't use parameters for labels so to dynamically include labels we must
+resort to string building, this is a very simple and quick method that takes in
+an array of labels and outputs a string that you can throw into your query.
+
+var labelStr = cypherTools.labelsToString(["Movie", "Horror"]);
+
+// Results in
+// ":Movie:Horror"
+
 ## Package and Contributions
 -----------------
 

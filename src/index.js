@@ -16,7 +16,20 @@
 
 import _ from "lodash";
 
-module.exports = {
+/**
+ * All methods are static, instance creation is not needed
+ *
+ * @class CypherTools
+ * @classdesc
+ * Collection of utility methods for cypher queries
+ * @author {@link http://codepen.io/wiseguy12851|John Mothershed}
+ * @copyright 2015 John Mothershed
+ * @license {@link http://www.apache.org/licenses/LICENSE-2.0|Apache-2.0}
+ * @requires {@link https://www.npmjs.com/package/simple-neo4j|simple-neo4j}
+ * @requires {@link https://www.npmjs.com/package/neo4j-query-object|neo4j-query-object}
+ * @version 2.0.0
+ */
+module.exports = class CypherTools {
     /**
      * This converts an object to a string that Neo4J can read. The object is
      * not a JSON object but essentially the same object with string quotes
@@ -25,11 +38,14 @@ module.exports = {
      * to be rendered as a string you must add quotes inside the string. See examples
      * below for better explanation.
      *
-     * @function objToString
+     * @public
+     * @static
+     * @memberof CypherTools
+     * @method objToString
      * @summary
      * This converts an object to a string that Neo4J can read
      * @since 1.1.0
-     * @param  {object} obj -
+     * @param  {object} [obj] -
      * The object to return as a string
      * @return {string}
      * The Neo4J compatible stringified object
@@ -47,9 +63,10 @@ module.exports = {
      * // Returns
      * // `{ hello: "world", key: "value", device: "laptop", test: 123 }`
      */
-    objToString: (obj = {}) => {
-
-        if(_.isEmpty(obj)) return "";
+    static objToString(obj = {})
+    {
+        if(typeof obj !== "object" ||
+            _.isEmpty(obj)) return "";
 
         // Start with blank string
         let objStr = ``;
@@ -75,7 +92,7 @@ module.exports = {
 
         // Return finished object
         return objStr;
-    },
+    }
 
     /**
      * This is similar to objToString but more complicated and takes advantage
@@ -88,7 +105,10 @@ module.exports = {
      * parameters but in those cases it can reference the values if told to.
      * See examples below for better explanation
      *
-     * @function objToParams
+     * @public
+     * @static
+     * @memberof CypherTools
+     * @method objToParams
      * @summary This converts an object to a string where the values reference
      * the same object passed in as a parameter to Neo4J
      * @since 1.0.0
@@ -111,7 +131,8 @@ module.exports = {
      * // Returns
      * // `{hello: {param1}.hello, key: {param1}.key, device: {param1}.device}`
      */
-    objToParams: (objName, obj = {}) => {
+    static objToParams(objName, obj = {})
+    {
         /*
          * Neo4J supports literal object parameters
          *
@@ -126,6 +147,7 @@ module.exports = {
 
         if(!objName ||
             typeof objName !== "string" ||
+            typeof obj !== "object" ||
             _.isEmpty(obj)) return "";
 
         let newObj = ``;
@@ -148,12 +170,15 @@ module.exports = {
 
         // Return finished object
         return newObj;
-    },
+    }
 
     /**
      * Converts an array of labels to string form that cypher can understand
      *
-     * @function labelsToString
+     * @public
+     * @static
+     * @memberof CypherTools
+     * @method labelsToString
      * @since 1.1.0
      * @param  {array} labels -
      * Aray of labels
@@ -165,7 +190,7 @@ module.exports = {
      * // Returns
      * // :Movie:Horror:Action:Favorite
      */
-    labelsToString: (labels = []) =>
+    static labelsToString(labels = [])
     {
         if(!Array.isArray(labels)
             || labels.length === 0) return "";

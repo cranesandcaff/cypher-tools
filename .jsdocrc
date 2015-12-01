@@ -16,42 +16,15 @@
         "destination": "./docs/",
         "recurse": true,
         "template": "templates/default",
-        "template-bak": "./node_modules/jaguarjs-jsdoc",
         "access": "all",
         "private": true,
         "readme": "./README.md",
-        "package-bak": "./package.json",
         "tutorials": "./tutorials/"
     },
 
     "templates": {
         "cleverLinks": false,
         "monospaceLinks": false
-    },
-
-    "templates-bak":
-    {
-        "applicationName": "Neo4JQueryObject",
-        "disqus": "",
-        "googleAnalytics": "",
-
-        "openGraph":
-        {
-            "title": "Neo4J Query Object",
-            "type": "website",
-            "image": "",
-            "site_name": "Neo4JQueryObject",
-            "url": ""
-        },
-
-        "meta":
-        {
-            "title": "Neo4JQueryObject",
-            "description": "Neo4J Query Object",
-            "keyword": ""
-        },
-
-        "linenums": true
     },
 
     "tags":

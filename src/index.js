@@ -47,7 +47,10 @@ module.exports = {
      * // Returns
      * // `{ hello: "world", key: "value", device: "laptop", test: 123 }`
      */
-    objToString: (obj) => {
+    objToString: (obj = {}) => {
+
+        if(_.isEmpty(obj)) return "";
+
         // Start with blank string
         let objStr = ``;
 
@@ -56,15 +59,8 @@ module.exports = {
         // anyways
         _.forOwn(obj, (value, key) => {
 
-            const valueType = typeof value;
-            let tmpStr = ``;
-
-            if(valueType === `string`)
-                // Stringify each key/value and add a trailing comma
-                tmpStr = `${key.toString()}: ${value.toString()},`;
-            else
-                // Stringify each key/value and add a trailing comma
-                tmpStr = `${key.toString()}: ${value.toString()},`;
+            const valueType = typeof value,
+                tmpStr = `${key.toString()}: ${JSON.stringify(value)},`;
 
             // Append this to the other key/value's
             objStr = `${objStr} ${tmpStr}`;
@@ -115,7 +111,7 @@ module.exports = {
      * // Returns
      * // `{hello: {param1}.hello, key: {param1}.key, device: {param1}.device}`
      */
-    objToParams: (objName, obj) => {
+    objToParams: (objName, obj = {}) => {
         /*
          * Neo4J supports literal object parameters
          *
@@ -127,6 +123,10 @@ module.exports = {
          * So we need to convert an object to a string whereby the key names
          * are the same but the values reference the same object and its key
          */
+
+        if(!objName ||
+            typeof objName !== "string" ||
+            _.isEmpty(obj)) return "";
 
         let newObj = ``;
 
@@ -165,8 +165,11 @@ module.exports = {
      * // Returns
      * // :Movie:Horror:Action:Favorite
      */
-    labelsToString: (labels) =>
+    labelsToString: (labels = []) =>
     {
+        if(!Array.isArray(labels)
+            || labels.length === 0) return "";
+
         return `:${labels.join(`:`)}`;
     }
 };

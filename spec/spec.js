@@ -21,8 +21,8 @@ describe("Simple tests", function()
     it("should stringify object correctly", function()
     {
         var objStr = cypherTools.objToString({
-            hello: '"world"',
-            whats: '"cooking"',
+            hello: 'world',
+            whats: 'cooking',
             test: 123
         });
 

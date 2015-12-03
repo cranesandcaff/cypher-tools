@@ -26,207 +26,221 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*
-    Copyright 2015 John Mothershed
+            <pre class="prettyprint source linenums"><code>"use strict";
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })(); /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Copyright 2015 John Mothershed
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Licensed under the Apache License, Version 2.0 (the `License`);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           you may not use this file except in compliance with the License.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           You may obtain a copy of the License at
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               http://www.apache.org/licenses/LICENSE-2.0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Unless required by applicable law or agreed to in writing, software
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           distributed under the License is distributed on an `AS IS` BASIS,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           See the License for the specific language governing permissions and
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           limitations under the License.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
-        http://www.apache.org/licenses/LICENSE-2.0
+var _lodash = require("lodash");
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @module cypher-tools
+ * @requires {@link https://www.npmjs.com/package/lodash|lodash}
  */
-
-import _ from "lodash";
 
 /**
  * All methods are static, instance creation is not needed
  *
- * @class CypherTools
+ * @class module:cypher-tools
  * @classdesc
  * Collection of utility methods for cypher queries
  * @author {@link http://codepen.io/wiseguy12851|John Mothershed}
  * @copyright 2015 John Mothershed
  * @license {@link http://www.apache.org/licenses/LICENSE-2.0|Apache-2.0}
- * @requires {@link https://www.npmjs.com/package/simple-neo4j|simple-neo4j}
- * @requires {@link https://www.npmjs.com/package/neo4j-query-object|neo4j-query-object}
  * @version 2.0.0
  */
-module.exports = class CypherTools {
-    /**
-     * This converts an object to a string that Neo4J can read. The object is
-     * not a JSON object but essentially the same object with string quotes
-     * around it. The key and value will be converted to a string via toString()
-     * The key nor value will have quotes added around it, if you want the value
-     * to be rendered as a string you must add quotes inside the string. See examples
-     * below for better explanation.
-     *
-     * @public
-     * @static
-     * @memberof CypherTools
-     * @method objToString
-     * @summary
-     * This converts an object to a string that Neo4J can read
-     * @since 1.1.0
-     * @param  {object} [obj] -
-     * The object to return as a string
-     * @return {string}
-     * The Neo4J compatible stringified object
-     * @example
-     * // Converts a simple object to a string
-     * let obj = {
-     *     hello: '"world"',
-     *     key: '"value"',
-     *     device: '"laptop"',
-     *     test: '123'
-     * }
-     *
-     * let objStr = cypherTools.objToString(obj);
-     *
-     * // Returns
-     * // `{ hello: "world", key: "value", device: "laptop", test: 123 }`
-     */
-    static objToString(obj = {})
-    {
-        if(typeof obj !== "object" ||
-            _.isEmpty(obj)) return "";
-
-        // Start with blank string
-        let objStr = ``;
-
-        // Loop through each key/value pair on the string
-        // Do a shallow loop as cypher doesnt support deeply nest objects
-        // anyways
-        _.forOwn(obj, (value, key) => {
-
-            const valueType = typeof value,
-                tmpStr = `${key.toString()}: ${JSON.stringify(value)},`;
-
-            // Append this to the other key/value's
-            objStr = `${objStr} ${tmpStr}`;
-        }, this);
-
-        // Wrap object brackets around the whole string thus far
-        objStr = `{ ${objStr} }`;
-
-        // Take off trailing comma, cypher has no support for it
-        // and thus it'll invalidate the query if left on
-        objStr = objStr.replace(/\, \}$/, ` }`);
-
-        // Return finished object
-        return objStr;
+module.exports = (function () {
+    function CypherTools() {
+        _classCallCheck(this, CypherTools);
     }
 
-    /**
-     * This is similar to objToString but more complicated and takes advantage
-     * of Neo4J's parameters. objToParams will convert an object to a string
-     * where the values of the object are variables that reference the same
-     * object. The purpose of this is speed, optimization, and efficiency. Pass
-     * the object to Neo4J as a parameter and then use this to convert the
-     * object to a string where the values references the same object passed in
-     * the parameter. Neo4J cant always just use the object as-is in the
-     * parameters but in those cases it can reference the values if told to.
-     * See examples below for better explanation
-     *
-     * @public
-     * @static
-     * @memberof CypherTools
-     * @method objToParams
-     * @summary This converts an object to a string where the values reference
-     * the same object passed in as a parameter to Neo4J
-     * @since 1.0.0
-     * @param  {string} objName -
-     * The name of the object parameter passed to Neo4J
-     * @param  {object} obj -
-     * The object to convert to a parameter string
-     * @return {string}
-     * The Neo4J compatible parameter string
-     * @example
-     * // Converts a simple object to a parameter string
-     * let obj = {
-     *     hello: "world",
-     *     key: "value",
-     *     device: "laptop"
-     * }
-     *
-     * let objParam = cypherTools.objToParams("param1", obj);
-     *
-     * // Returns
-     * // `{hello: {param1}.hello, key: {param1}.key, device: {param1}.device}`
-     */
-    static objToParams(objName, obj = {})
-    {
-        /*
-         * Neo4J supports literal object parameters
+    _createClass(CypherTools, null, [{
+        key: "objToString",
+
+        /**
+         * This converts an object to a string that Neo4J can read. The object is
+         * not a JSON object but essentially the same object with string quotes
+         * around it. The key and value will be converted to a string via toString()
+         * The key nor value will have quotes added around it, if you want the value
+         * to be rendered as a string you must add quotes inside the string. See examples
+         * below for better explanation.
          *
-         * {
-         *     key1: {obj}.key1
-         *     key2: {obj}.key2
+         * @public
+         * @static
+         * @method objToString
+         * @summary
+         * This converts an object to a string that Neo4J can read
+         * @since 1.1.0
+         * @param  {object} obj -
+         * The object to return as a string
+         * @return {string}
+         * The Neo4J compatible stringified object
+         * @example
+         * // Converts a simple object to a string
+         * let obj = {
+         *     hello: 'world',
+         *     key: 'value',
+         *     device: 'laptop',
+         *     test: 123
          * }
          *
-         * So we need to convert an object to a string whereby the key names
-         * are the same but the values reference the same object and its key
+         * let objStr = objToString(obj);
+         *
+         * // Returns
+         * // `{ hello: `world`, key: `value`, device: `laptop`, test: 123 }`
+         */
+        value: function objToString(obj) {
+            if (typeof obj !== "object" || _lodash2.default.isEmpty(obj)) return "";
+
+            // Start with blank string
+            var objStr = "";
+
+            // Loop through each key/value pair on the string
+            // Do a shallow loop as cypher doesnt support deeply nest objects
+            // anyways
+            _lodash2.default.forOwn(obj, function (value, key) {
+
+                var tmpStr = key.toString() + ": " + JSON.stringify(value) + ",";
+
+                // Append this to the other key/value's
+                objStr = objStr + " " + tmpStr;
+            }, this);
+
+            // Wrap object brackets around the whole string thus far
+            objStr = "{ " + objStr + " }";
+
+            // Take off trailing comma, cypher has no support for it
+            // and thus it'll invalidate the query if left on
+            objStr = objStr.replace(/\, \}$/, " }");
+
+            // Return finished object
+            return objStr;
+        }
+
+        /**
+         * This is similar to objToString but more complicated and takes advantage
+         * of Neo4J's parameters. objToParams will convert an object to a string
+         * where the values of the object are variables that reference the same
+         * object. The purpose of this is speed, optimization, and efficiency. Pass
+         * the object to Neo4J as a parameter and then use this to convert the
+         * object to a string where the values references the same object passed in
+         * the parameter. Neo4J cant always just use the object as-is in the
+         * parameters but in those cases it can reference the values if told to.
+         * See examples below for better explanation
+         *
+         * @public
+         * @static
+         * @method objToParams
+         * @summary This converts an object to a string where the values reference
+         * the same object passed in as a parameter to Neo4J
+         * @since 1.0.0
+         * @param  {string} objName -
+         * The name of the object parameter passed to Neo4J
+         * @param  {object} obj -
+         * The object to convert to a parameter string
+         * @return {string}
+         * The Neo4J compatible parameter string
+         * @example
+         * // Converts a simple object to a parameter string
+         * let obj = {
+         *     hello: `world`,
+         *     key: `value`,
+         *     device: `laptop`
+         * }
+         *
+         * let objParam = cypherTools.objToParams(`param1`, obj);
+         *
+         * // Returns
+         * // `{hello: {param1}.hello, key: {param1}.key, device: {param1}.device}`
          */
 
-        if(!objName ||
-            typeof objName !== "string" ||
-            typeof obj !== "object" ||
-            _.isEmpty(obj)) return "";
+    }, {
+        key: "objToParams",
+        value: function objToParams(objName, obj) {
+            /*
+             * Neo4J supports literal object parameters
+             *
+             * {
+             *     key1: {obj}.key1
+             *     key2: {obj}.key2
+             * }
+             *
+             * So we need to convert an object to a string whereby the key names
+             * are the same but the values reference the same object and its key
+             */
 
-        let newObj = ``;
+            if (typeof objName !== "string" || typeof obj !== "object" || _lodash2.default.isEmpty(obj)) return "";
 
-        _.forOwn(obj, (value, key) => {
-            // Convert key to string and make the value the object variable name
-            // followed by access to the same key
-            const tmpStr = `${key.toString()}: {${objName}}.${key.toString()},`;
+            var newObj = "";
 
-            // Append this to the other key/value's
-            newObj = `${newObj} ${tmpStr}`;
-        });
+            _lodash2.default.forOwn(obj, function (value, key) {
+                // Convert key to string and make the value the object variable name
+                // followed by access to the same key
+                var tmpStr = key.toString() + ": {" + objName + "}." + key.toString() + ",";
 
-        // Wrap object brackets around the whole string thus far
-        newObj = `{ ${newObj} }`;
+                // Append this to the other key/value's
+                newObj = newObj + " " + tmpStr;
+            });
 
-        // Take off trailing comma, cypher has no support for it
-        // and thus it'll invalidate the query if left on
-        newObj = newObj.replace(/\, \}$/, ` }`);
+            // Wrap object brackets around the whole string thus far
+            newObj = "{ " + newObj + " }";
 
-        // Return finished object
-        return newObj;
-    }
+            // Take off trailing comma, cypher has no support for it
+            // and thus it'll invalidate the query if left on
+            newObj = newObj.replace(/\, \}$/, " }");
 
-    /**
-     * Converts an array of labels to string form that cypher can understand
-     *
-     * @public
-     * @static
-     * @memberof CypherTools
-     * @method labelsToString
-     * @since 1.1.0
-     * @param  {array} labels -
-     * Aray of labels
-     * @return {string}
-     * Labels in a string form that is compatible with cypher
-     * @example
-     * // Convert some labels to a label string
-     * labelsToString(["Movie", "Horror", "Action", "Favorite"]);
-     * // Returns
-     * // :Movie:Horror:Action:Favorite
-     */
-    static labelsToString(labels = [])
-    {
-        if(!Array.isArray(labels)
-            || labels.length === 0) return "";
+            // Return finished object
+            return newObj;
+        }
 
-        return `:${labels.join(`:`)}`;
-    }
-};
-</code></pre>
+        /**
+         * Converts an array of labels to string form that cypher can understand
+         *
+         * @public
+         * @static
+         * @method labelsToString
+         * @since 1.1.0
+         * @param  {array} labels -
+         * Aray of labels
+         * @return {string}
+         * Labels in a string form that is compatible with cypher
+         * @example
+         * // Convert some labels to a label string
+         * labelsToString([`Movie`, `Horror`, `Action`, `Favorite`]);
+         * // Returns
+         * // :Movie:Horror:Action:Favorite
+         */
+
+    }, {
+        key: "labelsToString",
+        value: function labelsToString(labels) {
+            if (!Array.isArray(labels) || labels.length === 0) return "";
+
+            return ":" + labels.join(":");
+        }
+    }]);
+
+    return CypherTools;
+})();</code></pre>
         </article>
     </section>
 
@@ -236,13 +250,13 @@ module.exports = class CypherTools {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CypherTools.html">CypherTools</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-cypher-tools.html">cypher-tools</a></li></ul><h3>Classes</h3><ul><li><a href="module-cypher-tools.html">cypher-tools</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Dec 01 2015 06:52:02 GMT-0600 (CST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 03 2015 07:06:54 GMT-0600 (CST)
 </footer>
 
 <script> prettyPrint(); </script>

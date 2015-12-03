@@ -1,6 +1,0 @@
-1.3
-
-Start of this changelog begins
-
-New look to the readme, improved documentation, package upgraded from an object
-to a class of static methods, old functionality shouldn't be broken.

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: CypherTools</title>
+    <title>JSDoc: Class: module:cypher-tools</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: CypherTools</h1>
+    <h1 class="page-title">Class: module:cypher-tools</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>CypherTools</h2>
+        <h2>module:cypher-tools</h2>
         
             <div class="class-description"><p>Collection of utility methods for cypher queries</p></div>
         
@@ -44,7 +44,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="CypherTools"><span class="type-signature"></span>new CypherTools<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:cypher-tools"><span class="type-signature"></span>new module:cypher-tools<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -111,7 +111,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -123,13 +123,6 @@
 </dl>
 
 
-
-<h5>Requires:</h5>
-<ul>
-    <li><a href="https://www.npmjs.com/package/simple-neo4j">simple-neo4j</a></li>
-
-    <li><a href="https://www.npmjs.com/package/neo4j-query-object">neo4j-query-object</a></li>
-</ul>
 
 
 
@@ -149,14 +142,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="https://www.npmjs.com/package/simple-neo4j">simple-neo4j</a></li>
-        
-            <li><a href="https://www.npmjs.com/package/neo4j-query-object">neo4j-query-object</a></li>
-        </ul>
     
 
     
@@ -278,7 +263,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line87">line 87</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -328,7 +313,7 @@
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>// Convert some labels to a label string
-labelsToString(["Movie", "Horror", "Action", "Favorite"]);
+labelsToString([`Movie`, `Horror`, `Action`, `Favorite`]);
 // Returns
 // :Movie:Horror:Action:Favorite</code></pre>
 
@@ -476,7 +461,7 @@ See examples below for better explanation</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line49">line 49</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -527,12 +512,12 @@ See examples below for better explanation</p>
     
     <pre class="prettyprint"><code>// Converts a simple object to a parameter string
 let obj = {
-    hello: "world",
-    key: "value",
-    device: "laptop"
+    hello: `world`,
+    key: `value`,
+    device: `laptop`
 }
 
-let objParam = cypherTools.objToParams("param1", obj);
+let objParam = cypherTools.objToParams(`param1`, obj);
 
 // Returns
 // `{hello: {param1}.hello, key: {param1}.key, device: {param1}.device}`</code></pre>
@@ -544,7 +529,7 @@ let objParam = cypherTools.objToParams("param1", obj);
 
     
 
-    <h4 class="name" id=".objToString"><span class="type-signature">(static) </span>objToString<span class="signature">(obj<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#string">string</a>}</span></h4>
+    <h4 class="name" id=".objToString"><span class="type-signature">(static) </span>objToString<span class="signature">(obj)</span><span class="type-signature"> &rarr; {<a href="global.html#string">string</a>}</span></h4>
 
     
     <p class="summary">This converts an object to a string that Neo4J can read</p>
@@ -582,8 +567,6 @@ below for better explanation.</p>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -608,16 +591,6 @@ below for better explanation.</p>
             
             </td>
 
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
             
 
             
@@ -666,7 +639,7 @@ below for better explanation.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line15">line 15</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -717,16 +690,16 @@ below for better explanation.</p>
     
     <pre class="prettyprint"><code>// Converts a simple object to a string
 let obj = {
-    hello: '"world"',
-    key: '"value"',
-    device: '"laptop"',
-    test: '123'
+    hello: 'world',
+    key: 'value',
+    device: 'laptop',
+    test: 123
 }
 
-let objStr = cypherTools.objToString(obj);
+let objStr = objToString(obj);
 
 // Returns
-// `{ hello: "world", key: "value", device: "laptop", test: 123 }`</code></pre>
+// `{ hello: `world`, key: `value`, device: `laptop`, test: 123 }`</code></pre>
 
 
 
@@ -746,13 +719,13 @@ let objStr = cypherTools.objToString(obj);
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CypherTools.html">CypherTools</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-cypher-tools.html">cypher-tools</a></li></ul><h3>Classes</h3><ul><li><a href="module-cypher-tools.html">cypher-tools</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Dec 01 2015 06:52:02 GMT-0600 (CST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 03 2015 07:06:54 GMT-0600 (CST)
 </footer>
 
 <script> prettyPrint(); </script>

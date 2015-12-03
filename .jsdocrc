@@ -1,13 +1,12 @@
 {
     "source":
     {
-        "include": ["./src/"],
+        "include": ["./build/"],
         "includePattern": ".+\\.js(doc)?$"
     },
 
     "plugins": [
-        "plugins/markdown",
-        "plugins/commentsOnly"
+        "plugins/markdown"
     ],
 
     "opts":

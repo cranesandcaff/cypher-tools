@@ -1,14 +1,14 @@
 /*
     Copyright 2015 John Mothershed
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+    Licensed under the Apache License, Version 2.0 (the `License`);
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
         http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
+    distributed under the License is distributed on an `AS IS` BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
@@ -17,16 +17,19 @@
 import _ from "lodash";
 
 /**
+ * @module cypher-tools
+ * @requires {@link https://www.npmjs.com/package/lodash|lodash}
+ */
+
+/**
  * All methods are static, instance creation is not needed
  *
- * @class CypherTools
+ * @class module:cypher-tools
  * @classdesc
  * Collection of utility methods for cypher queries
  * @author {@link http://codepen.io/wiseguy12851|John Mothershed}
  * @copyright 2015 John Mothershed
  * @license {@link http://www.apache.org/licenses/LICENSE-2.0|Apache-2.0}
- * @requires {@link https://www.npmjs.com/package/simple-neo4j|simple-neo4j}
- * @requires {@link https://www.npmjs.com/package/neo4j-query-object|neo4j-query-object}
  * @version 2.0.0
  */
 module.exports = class CypherTools {
@@ -40,33 +43,32 @@ module.exports = class CypherTools {
      *
      * @public
      * @static
-     * @memberof CypherTools
      * @method objToString
      * @summary
      * This converts an object to a string that Neo4J can read
      * @since 1.1.0
-     * @param  {object} [obj] -
+     * @param  {object} obj -
      * The object to return as a string
      * @return {string}
      * The Neo4J compatible stringified object
      * @example
      * // Converts a simple object to a string
      * let obj = {
-     *     hello: '"world"',
-     *     key: '"value"',
-     *     device: '"laptop"',
-     *     test: '123'
+     *     hello: 'world',
+     *     key: 'value',
+     *     device: 'laptop',
+     *     test: 123
      * }
      *
-     * let objStr = cypherTools.objToString(obj);
+     * let objStr = objToString(obj);
      *
      * // Returns
-     * // `{ hello: "world", key: "value", device: "laptop", test: 123 }`
+     * // `{ hello: `world`, key: `value`, device: `laptop`, test: 123 }`
      */
-    static objToString(obj = {})
+    static objToString(obj)
     {
-        if(typeof obj !== "object" ||
-            _.isEmpty(obj)) return "";
+        if(typeof obj !== `object`
+            || _.isEmpty(obj)) return ``;
 
         // Start with blank string
         let objStr = ``;
@@ -76,8 +78,7 @@ module.exports = class CypherTools {
         // anyways
         _.forOwn(obj, (value, key) => {
 
-            const valueType = typeof value,
-                tmpStr = `${key.toString()}: ${JSON.stringify(value)},`;
+            const tmpStr = `${key.toString()}: ${JSON.stringify(value)},`;
 
             // Append this to the other key/value's
             objStr = `${objStr} ${tmpStr}`;
@@ -107,7 +108,6 @@ module.exports = class CypherTools {
      *
      * @public
      * @static
-     * @memberof CypherTools
      * @method objToParams
      * @summary This converts an object to a string where the values reference
      * the same object passed in as a parameter to Neo4J
@@ -121,17 +121,17 @@ module.exports = class CypherTools {
      * @example
      * // Converts a simple object to a parameter string
      * let obj = {
-     *     hello: "world",
-     *     key: "value",
-     *     device: "laptop"
+     *     hello: `world`,
+     *     key: `value`,
+     *     device: `laptop`
      * }
      *
-     * let objParam = cypherTools.objToParams("param1", obj);
+     * let objParam = cypherTools.objToParams(`param1`, obj);
      *
      * // Returns
      * // `{hello: {param1}.hello, key: {param1}.key, device: {param1}.device}`
      */
-    static objToParams(objName, obj = {})
+    static objToParams(objName, obj)
     {
         /*
          * Neo4J supports literal object parameters
@@ -145,10 +145,9 @@ module.exports = class CypherTools {
          * are the same but the values reference the same object and its key
          */
 
-        if(!objName ||
-            typeof objName !== "string" ||
-            typeof obj !== "object" ||
-            _.isEmpty(obj)) return "";
+        if(typeof objName !== `string`
+            || typeof obj !== `object`
+            || _.isEmpty(obj)) return ``;
 
         let newObj = ``;
 
@@ -177,7 +176,6 @@ module.exports = class CypherTools {
      *
      * @public
      * @static
-     * @memberof CypherTools
      * @method labelsToString
      * @since 1.1.0
      * @param  {array} labels -
@@ -186,14 +184,14 @@ module.exports = class CypherTools {
      * Labels in a string form that is compatible with cypher
      * @example
      * // Convert some labels to a label string
-     * labelsToString(["Movie", "Horror", "Action", "Favorite"]);
+     * labelsToString([`Movie`, `Horror`, `Action`, `Favorite`]);
      * // Returns
      * // :Movie:Horror:Action:Favorite
      */
-    static labelsToString(labels = [])
+    static labelsToString(labels)
     {
         if(!Array.isArray(labels)
-            || labels.length === 0) return "";
+            || labels.length === 0) return ``;
 
         return `:${labels.join(`:`)}`;
     }

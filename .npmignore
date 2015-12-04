@@ -14,7 +14,7 @@ Thumbs.db
 /docs/
 /node_modules/
 /spec/
-#/src/ # Disabled because JSDoc will use src files from now on
+/src/
 /tutorials/
 .babelrc
 .eslintrc

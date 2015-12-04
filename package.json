@@ -1,6 +1,6 @@
 {
   "name": "cypher-tools",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Various useful tools for Neo4J's Cypher Query Language",
   "main": "build/index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "prepublish": "npm run eslint && npm run build && npm run test",
     "build": "npm run compile && npm run docs",
     "eslint": "node_modules/.bin/eslint -c .eslintrc ./src/",
-    "pages": "git checkout gh-pages && git merge master && git checkout master",
+    "pages": "git checkout gh-pages && git merge master && git checkout dev",
+    "master": "git checkout master && git merge dev && git checkout dev",
     "test": "jasmine"
   },
   "repository": {

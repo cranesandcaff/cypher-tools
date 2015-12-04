@@ -1,3 +1,7 @@
+Version 1.4.1
+====================
+* Removed src files from `npm publish` due to documentation changes
+
 Version 1.4.0
 ====================
 
